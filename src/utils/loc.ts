@@ -1,4 +1,4 @@
-import type { Place } from './utils/types';
+import type { Place } from './types';
 
 function toRad(value: number): number {
     return (value * Math.PI) / 180;
