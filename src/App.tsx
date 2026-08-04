@@ -1,89 +1,30 @@
-import { useRef, useState } from 'react';
-
 import Places from './components/Places';
-import Modal from './components/Modal';
-import DeleteConfirmation from './components/DeleteConfirmation';
-import { AVAILABLE_PLACES } from './data';
-import type { ModalHandle, Place } from './utils/types';
 import logoImg from './assets/logo.png';
-import { PlaceContext } from './context/PlaceContext';
 
 function App() {
-    const modal = useRef<ModalHandle>(null);
-    const selectedPlace = useRef<string | null>(null);
-    const [pickedPlaces, setPickedPlaces] = useState<Place[]>([]);
-
-    function handleStartRemovePlace(id: string) {
-        modal.current?.open();
-        selectedPlace.current = id;
-    }
-
-    function handleStopRemovePlace() {
-        modal.current?.close();
-    }
-
-    function handleSelectPlace(id: string) {
-        setPickedPlaces((prevPickedPlaces) => {
-            if (prevPickedPlaces.some((place) => place.id === id)) {
-                return prevPickedPlaces;
-            }
-            const place = AVAILABLE_PLACES.find((place) => place.id === id);
-            if (!place) {
-                return prevPickedPlaces;
-            }
-            return [place, ...prevPickedPlaces];
-        });
-    }
-
-    function handleRemovePlace() {
-        setPickedPlaces((prevPickedPlaces) =>
-            prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
-        );
-        modal.current?.close();
-    }
-
     return (
         <>
-            <PlaceContext.Provider value={{
-                places: pickedPlaces,
-                setPlaces: setPickedPlaces,
-                addPlace: handleSelectPlace,
-                deletePlace: handleRemovePlace,
-            }}>
+            <header>
+                <img src={logoImg} alt="Stylized globe" />
+                <h1>PlacePicker</h1>
+                <p>
+                    Create your personal collection of places you would like to visit or
+                    you have visited.
+                </p>
+            </header>
 
-                <Modal ref={modal}>
-                    <DeleteConfirmation
-                        onCancel={handleStopRemovePlace}
-                        onConfirm={handleRemovePlace}
-                    />
-                </Modal>
-
-                <header>
-                    <img src={logoImg} alt="Stylized globe" />
-                    <h1>PlacePicker</h1>
-                    <p>
-                        Create your personal collection of places you would like to visit or
-                        you have visited.
-                    </p>
-                </header>
-
-                <main>
-                    <Places
-                        title="I'd like to visit ..."
-                        fallbackText={'Select the places you would like to visit below.'}
-                        places={pickedPlaces}
-                        onSelectPlace={handleStartRemovePlace}
-                    />
-                    <Places
-                        title="Available Places"
-                        places={AVAILABLE_PLACES}
-                        onSelectPlace={handleSelectPlace}
-                    />
-                </main>
-
-            </PlaceContext.Provider>
-
-        </ >
+            <main>
+                <Places
+                    title="I'd like to visit ..."
+                    type="picked"
+                    fallbackText="Select the places you would like to visit below."
+                />
+                <Places
+                    title="Available Places"
+                    type="available"
+                />
+            </main>
+        </>
     );
 }
 

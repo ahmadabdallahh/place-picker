@@ -13,9 +13,8 @@ type Place = {
 
 type PlacesProps = {
     title: string;
-    places: Place[];
+    type: 'picked' | 'available';
     fallbackText?: string;
-    onSelectPlace: (id: string) => void;
 };
 
 type ModalHandle = {
@@ -27,16 +26,12 @@ type ModalProps = {
     children: ReactNode;
 };
 
-type DeleteConfirmationProps = {
-    onConfirm: () => void;
-    onCancel: () => void;
-};
-
 type PlaceContextType = {
     places: Place[];
-    setPlaces: (places: Place[]) => void;
     addPlace: (id: string) => void;
-    deletePlace: (id: string) => void;
+    removePlace: () => void;
+    startRemovePlace: (id: string) => void;
+    stopRemovePlace: () => void;
 };
 
 export type {
@@ -44,6 +39,5 @@ export type {
     PlacesProps,
     ModalHandle,
     ModalProps,
-    DeleteConfirmationProps,
     PlaceContextType,
 };

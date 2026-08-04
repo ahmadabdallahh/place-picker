@@ -1,6 +1,13 @@
+import { AVAILABLE_PLACES } from '../data';
+import { usePlace } from '../context/usePlace';
 import type { PlacesProps } from '../utils/types';
 
-export default function Places({ title, places, fallbackText, onSelectPlace }: PlacesProps) {
+export default function Places({ title, type, fallbackText }: PlacesProps) {
+    const { places: pickedPlaces, startRemovePlace, addPlace } = usePlace();
+
+    const places = type === 'picked' ? pickedPlaces : AVAILABLE_PLACES;
+    const onSelectPlace = type === 'picked' ? startRemovePlace : addPlace;
+
     return (
         <section className="places-category">
             <h2>{title}</h2>
@@ -14,7 +21,7 @@ export default function Places({ title, places, fallbackText, onSelectPlace }: P
                                 <h3>{place.title}</h3>
                             </button>
                         </li>
-                ))}
+                    ))}
                 </ul>
             )}
         </section>
