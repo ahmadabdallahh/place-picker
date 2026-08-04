@@ -35,7 +35,7 @@ type DeleteConfirmationProps = {
 type PlaceContextType = {
     places: Place[];
     setPlaces: (places: Place[]) => void;
-    addPlace: (place: Place) => void;
+    addPlace: (id: string) => void;
     deletePlace: (id: string) => void;
 };
 

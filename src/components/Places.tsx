@@ -14,7 +14,7 @@ export default function Places({ title, places, fallbackText, onSelectPlace }: P
                                 <h3>{place.title}</h3>
                             </button>
                         </li>
-                    ))}
+                ))}
                 </ul>
             )}
         </section>
