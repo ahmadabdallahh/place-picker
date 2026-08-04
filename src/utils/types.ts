@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-export type Place = {
+type Place = {
     id: string;
     title: string;
     image: {
@@ -11,23 +11,39 @@ export type Place = {
     lon: number;
 };
 
-export type PlacesProps = {
+type PlacesProps = {
     title: string;
     places: Place[];
     fallbackText?: string;
     onSelectPlace: (id: string) => void;
 };
 
-export type ModalHandle = {
+type ModalHandle = {
     open: () => void;
     close: () => void;
 };
 
-export type ModalProps = {
+type ModalProps = {
     children: ReactNode;
 };
 
-export type DeleteConfirmationProps = {
+type DeleteConfirmationProps = {
     onConfirm: () => void;
     onCancel: () => void;
+};
+
+type PlaceContextType = {
+    places: Place[];
+    setPlaces: (places: Place[]) => void;
+    addPlace: (place: Place) => void;
+    deletePlace: (id: string) => void;
+};
+
+export type {
+    Place,
+    PlacesProps,
+    ModalHandle,
+    ModalProps,
+    DeleteConfirmationProps,
+    PlaceContextType,
 };
