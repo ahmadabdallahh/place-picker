@@ -1,11 +1,10 @@
-import { AVAILABLE_PLACES } from '../data';
 import { usePlace } from '../context/usePlace';
 import type { PlacesProps } from '../utils/types';
 
 export default function Places({ title, type, fallbackText }: PlacesProps) {
-    const { places: pickedPlaces, startRemovePlace, addPlace } = usePlace();
+    const { places: pickedPlaces, availablePlaces, startRemovePlace, addPlace } = usePlace();
 
-    const places = type === 'picked' ? pickedPlaces : AVAILABLE_PLACES;
+    const places = type === 'picked' ? pickedPlaces : availablePlaces;
     const onSelectPlace = type === 'picked' ? startRemovePlace : addPlace;
 
     return (

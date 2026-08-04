@@ -28,6 +28,7 @@ type ModalProps = {
 
 type PlaceContextType = {
     places: Place[];
+    availablePlaces: Place[];
     addPlace: (id: string) => void;
     removePlace: () => void;
     startRemovePlace: (id: string) => void;
